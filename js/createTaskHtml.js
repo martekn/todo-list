@@ -20,39 +20,31 @@ const createHtmlElement = function (tag, className, nameIdFor, text, inputType) 
   return element;
 };
 
-const appendChildren = function (array, parent) {
-  const children = array;
-  for (const child of children) {
-    parent.append(child);
-  }
-};
-
 export const taskHtml = function (inputValue, beforeElement, tasks, id) {
   const taskWrapper = createHtmlElement("div", "task");
   const label = createHtmlElement("label", null, `task-status-${id}`);
+
   const deleteButton = createHtmlElement("button", "delete");
   deleteButton.addEventListener("click", function (e) {
     this.parentNode.remove(taskWrapper);
     tasks = tasks.filter((task) => task !== inputValue);
     updateLocalStorage(localStorageKey, tasks);
   });
-  const deleteButtonContent = createHtmlElement("span", "material-symbols-outlined", null, "delete");
+  deleteButton.innerHTML = `<span class='material-symbols-outlined'> delete </span>`;
+
   const inputCheckbox = createHtmlElement("input", null, `task-status-${id}`, null, "checkbox");
   const customCheckbox = createHtmlElement("span", "custom-checkbox");
   const taskItem = createHtmlElement("span", "task-name", null, inputValue);
-  appendChildren([inputCheckbox, customCheckbox, taskItem], label);
-  appendChildren([deleteButtonContent], deleteButton);
-  appendChildren([label, deleteButton], taskWrapper);
+
+  label.append(inputCheckbox, customCheckbox, taskItem);
+  taskWrapper.append(label, deleteButton);
   beforeElement.parentNode.insertBefore(taskWrapper, beforeElement);
 };
 
 export const createTask = function (input, beforeElement, tasks) {
-  // Get value from input
   const inputValue = input.value.trim();
-  // Reset input field
   input.value = "";
 
-  // If inputValue holds a value, create html
   if (inputValue) {
     taskHtml(inputValue, beforeElement, tasks, new Date().getTime());
     tasks.push(inputValue);

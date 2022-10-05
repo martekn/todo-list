@@ -1,15 +1,7 @@
-html {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
-  -moz-box-sizing: inherit;
-  -webkit-box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body {
@@ -40,6 +32,7 @@ button {
   font-size: inherit;
   cursor: pointer;
 }
+
 .task-input {
   display: flex;
   gap: 20px;

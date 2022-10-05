@@ -1,11 +1,17 @@
 import { createTask, taskHtml } from "./createTaskHtml.js";
 import { updateLocalStorage } from "./util.js";
+
 const input = document.querySelector(".task-input input");
 const inputButton = document.querySelector(".task-input button");
 const clearButton = document.querySelector(".clear");
-let tasks = [];
 const localStorageKey = "tasks";
 window.localStorageKey = localStorageKey;
+
+let tasks = [];
+
+const updateLocalStorage = function (key, tasks) {
+  localStorage.setItem(key, JSON.stringify(tasks));
+};
 
 if (localStorage.getItem(localStorageKey) !== null) {
   tasks = JSON.parse(localStorage.getItem(localStorageKey));
