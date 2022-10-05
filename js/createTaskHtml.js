@@ -1,24 +1,4 @@
-import { updateLocalStorage } from "./util.js";
-const createHtmlElement = function (tag, className, nameIdFor, text, inputType) {
-  const element = document.createElement(tag);
-  element.classList.add(className);
-
-  if (tag === "label") {
-    element.setAttribute("for", nameIdFor);
-  }
-
-  if (tag === "input") {
-    element.setAttribute("id", nameIdFor);
-    element.setAttribute("name", nameIdFor);
-    element.setAttribute("type", inputType);
-  }
-
-  if (text) {
-    element.innerText = text;
-  }
-
-  return element;
-};
+import { updateLocalStorage, createHtmlElement } from "./util.js";
 
 export const taskHtml = function (inputValue, beforeElement, tasks, id) {
   const taskWrapper = createHtmlElement("div", "task");
