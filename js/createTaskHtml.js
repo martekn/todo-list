@@ -1,12 +1,19 @@
 import { updateLocalStorage, createHtmlElement } from "./util.js";
 
+/**
+ * Creates a task based on arguments and appends before the beforeElement
+ * @param {String} inputValue
+ * @param {HTMLElement} beforeElement
+ * @param {*[]} tasks
+ * @param {*} id unique id
+ */
 export const taskHtml = function (inputValue, beforeElement, tasks, id) {
   const taskWrapper = createHtmlElement("div", "task");
   const label = createHtmlElement("label", null, `task-status-${id}`);
 
   const deleteButton = createHtmlElement("button", "delete");
   deleteButton.addEventListener("click", function (e) {
-    this.parentNode.remove(taskWrapper);
+    taskWrapper.remove();
     tasks = tasks.filter((task) => task !== inputValue);
     updateLocalStorage(localStorageKey, tasks);
   });
@@ -21,6 +28,12 @@ export const taskHtml = function (inputValue, beforeElement, tasks, id) {
   beforeElement.parentNode.insertBefore(taskWrapper, beforeElement);
 };
 
+/**
+ * Creates task if input value exists
+ * @param {HTMLElement} input
+ * @param {HTMLElement} beforeElement
+ * @param {*[]} tasks
+ */
 export const createTask = function (input, beforeElement, tasks) {
   const inputValue = input.value.trim();
   input.value = "";
